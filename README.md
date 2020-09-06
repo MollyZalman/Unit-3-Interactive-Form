@@ -7,10 +7,10 @@ My third project for the Team Treehouse Tech Degree in Full Stack Javascript.
 ## Build status
 Not Started
 
-# Start Date:
+## Start Date:
 
 
-# End Date (non permanent):
+## End Date (non permanent):
 
 
 ## Code style
