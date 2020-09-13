@@ -4,7 +4,7 @@
                                                                 ##########################################*/
 
 
-//Job Role selection section
+//Job Role Selection Section
 
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/hidden
 const title = document.getElementById("title");
@@ -202,7 +202,7 @@ const validateName = () => {
     }
 };
 
-//Validates Email
+//Validates email
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
 const validateEmail = () => {
     const addAtSymbol = email.value.indexOf('@');
