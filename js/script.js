@@ -5,6 +5,7 @@
 
 
 //Job Role selection section
+
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/hidden
 const title = document.getElementById("title");
 const otherTitle = document.getElementById("other-title");
@@ -15,10 +16,12 @@ title.addEventListener('change', (e) => {
         otherTitle.style.display = "block";
     } else {
         otherTitle.style.display = "none";
+        otherTitle.style.border = "none";
     }
 });
 
 //T-shirt Selection Section
+
 //Disables Select a Color
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden and https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
 const disableColor = document.getElementById("color");
@@ -33,40 +36,41 @@ disableColor.selectedIndex = '0';
 //No selecting here!
 themeSelect.disabled = true;
 
+//FIX
 //Only once a theme is selected can someone pick a color. I don't make the rules!
 const shirtDesign = document.getElementById("design");
 design.addEventListener('change', (e) => {
     disableColor.disabled = false;
-    //Resets the color select to the placeholder (so when user changes theme, they are prompted to chose again)
     //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedIndex
     disableColor.selectedIndex = '0'; 
     //If the user selects a heart, the pun options are disabled
-    if (e.target.value == '♥ js') {
+    if (e.target.value = '♥') {
         // Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
         let j;
-        for (j= 0; j< color.length; j++) {
+        for (j = 0; j < disableColor.length; j++) {
             if (disableColor.options[j].text.includes('Puns')) {
-                disableColor.options[j].hidden = true;
-            }   else {
-                disableColor.options[j].hidden = false;
+                disableColor.options[j].hidden === true;
+            } else {
+                disableColor.options[j].hidden === false;
             }                  
         }
-    } 
+    }
     //If user selects Puns, the heart options are disabled
-    if (e.target.value = 'js puns') {
+    if (e.target.value = 'Puns') {
       //Loops through each option to match js puns with the right colors
       let j;
-      for (j= 0; j< disableColor.length; j++) {
+      for (j = 0; j < disableColor.length; j++) {
           if (disableColor.options[j].text.includes('♥')) {
-              disableColor.options[j].hidden = true;
+              disableColor.options[j].hidden === true;
           }   else {
-              disableColor.options[j].hidden = false;
+              disableColor.options[j].hidden === false;
           }                  
       } 
   }  
 });
 
 //Activity Section
+
 //Creates new h3 element for the total and sets initial value (before anything is checked) to 0
 const activity = document.querySelector('.activities');
 const checkboxes = document.querySelectorAll('label input');
@@ -79,6 +83,7 @@ const activityLegend = document.querySelector('.activities legend');
 const activityError = document.createElement('h5');
 activityError.innerHTML = 'Wait! Please select an activity.';
 activityError.style.margin = '10px 1px -5px 1px';
+activityError.style.textAlign = 'center';
 activityError.hidden = true;
 activityLegend.appendChild(activityError);
 
@@ -113,7 +118,8 @@ activity.addEventListener('change', (e) => {
     total.style.color = 'yellow';
 }); 
 
-//validating the activities section
+//Validating Activities Section
+
 const validateActivity = () => {
   //loop through the activity choices and hide the error message if at least one of the activities is checked
   for (let j = 0; j < checkboxes.length; j++) {
@@ -128,43 +134,195 @@ const validateActivity = () => {
   return false;
 }
 
-// function isValidName (name){
+//Payment Selection Section
 
-// }
-
-// function isValidEmail (email){
-
-// }
-
-// function isValidCardNumber (card-number){
-
-// }
-
-// function isValidZipCode (zip-code){
-
-// }
-
-// function isValidCvv (cvv){
-
-// }
+const payment = document.querySelector('#payment');
+const timeToPay = payment[0];
+const defaultCard = payment.value = 'credit card';
+const selectMethod = payment.value = 'select method';
+const creditCard = document.querySelector('#credit-card');
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
 
 
+//If the credit card method is selected, the two other elements are blocked and so on
+payment.addEventListener('change', (e) => {
+    const type = e.target.value; 
+    if (type === 'credit card') {
+        creditCard.style.display = 'block';
+        paypal.style.display = 'none';
+        bitcoin.style.display = 'none';
+    } else if (type === 'paypal') {
+        creditCard.style.display = 'none';
+        paypal.style.display = 'block';
+        bitcoin.style.display = 'none';
+    } else {
+        creditCard.style.display = 'none';
+        paypal.style.display = 'none';
+        bitcoin.style.display = 'block';
+    }
 
-// const nameInput = document.getElementById("name");
-// const emailInput = document.getElementById("email");
-// const cardNumberInput = document.getElementById("card-number");
-// const zipCodeInput = document.getElementById("zip-code");
-// const cvvInput = document.getElementById("cvv");
+    selectMethod.hidden === true;
+    defaultCard.selected === true;
+    paypal.hidden === true;
+    bitcoin.hidden === true;
+    timeToPay.hidden === true;
+});
 
-// nameInput.addEventListener("input", createListener(isValidName));
+//Validation Section
 
-// emailInput.addEventListener("input", createListener(isValidEmail));
+const name = document.querySelector('#name'); 
+const nameError = document.createElement("div"); 
+const email = document.querySelector('#mail');
+const emailError = document.createElement("div"); 
+const cardNumber = document.getElementById('cc-num');
+const creditCardError = document.createElement("div");
+const zip = document.getElementById('zip'); 
+const zipError = document.createElement("div"); 
+const cvv = document.getElementById('cvv');
+const cvvError = document.createElement("div"); 
+let selectPayment = document.querySelector('#payment').value;
 
-// cardNumberInput.addEventListener("input", createListener(isValidCardNumber));
+//Validates the name
+//Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before
+const validateName = () => {
+    if (name.value.length > 0) {
+        if(nameError){
+        nameError.remove();
+        }
+        return true;
 
-// zipCodeInput.addEventListener("input", createListener(isValidZipCode));
+    } else {
+        name.style.border = '2px solid yellow';
+        name.before(nameError);
+        nameError.innerText = "What's your name? We'd love to know!";
+        nameError.style.margin = '5px';
+        nameError.style.textAlign = 'center';
+        return false;
+    }
+};
 
-// cvvInput.addEventListener("input", createListener(isValidCvv));
+//Validates Email
+//Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
+const validateEmail = () => {
+    const addAtSymbol = email.value.indexOf('@');
+    const addDot = email.value.lastIndexOf('.');
+
+    if (addAtSymbol > 1 && addDot > addAtSymbol) { 
+        if(emailError){
+        emailError.remove();
+    }
+        return true;
+
+    } else {
+        email.style.border = '2px solid yellow';
+        email.before(emailError);
+        emailError.innerText = "Let's be friends! Please enter a valid email.";
+        emailError.style.margin = '5px';
+        emailError.style.textAlign = 'center';
+        return false;
+    }
+};
+
+email.addEventListener('input', () => {
+    const isEmailCorrect = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(email.value.toUpperCase());
+    if(isEmailCorrect){
+        if(emailError) {
+        emailError.remove();
+    }
+        return true;
+
+    } else {
+        email.style.border = '2px solid yellow';
+        email.before(emailError);
+        emailError.innerText = "Let's be friends! Please enter a valid email.";
+        emailError.style.margin = '5px';
+        emailError.style.textAlign = 'center';
+        return false;
+    }
+});
+  
+//Validates credit card
+//Inspired by: https://www.regular-expressions.info/creditcard.html
+const validateCreditCard = () => {
+    //Accommodates all card types between 13-16 numbers
+    const isCCCorrect = /[^0-9]+{13,16}$/.test(cardNumber.value);
+    //Allows only 9 digit zip code with or without dashes
+    const isZipCorrect = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(zip.value);
+    //Accommodates all card cvv types with either 3 or 4 numbers
+    const isCvvCorrect = /^[0-9]{3, 4}$/.test(cvv.value);
+        
+    if (isCCCorrect && creditCardError  ) {
+        creditCardError.remove();
+    }
+
+    if (isZipCorrect && zipError) {
+        zipError.remove();
+    }
+
+    if (isCvvCorrect && cvvError) {
+        cvvError.remove();
+    }
+    
+    if (!isCCCorrect) {
+        cardNumber.style.border = '2px solid yellow';
+        cardNumber.style.margin = '5px';
+        cardNumber.style.textAlign = 'center';
+        cardNumber.before(creditCardError);
+        creditCardError.innerText = "Whoops! Invalid card information.";
+
+        if (cardNumber.value.length > 16 ) {
+            creditCardError.innerText = "Woah there! Your credit card number cannot be more than 16 digits.";
+        }
+        if (cardNumber.value.length < 13 ) {
+            creditCardError.innerText = "Uh oh! Your credit card number has to be at least 13 digits.";
+        }
+        if (isNaN(cardNumber.value)) {
+            creditCardError.innerText = "Oh no! Your credit card number has to be at least 13 digits. Please remove any special characters or letters.";
+        }
+    }
+
+    if (!isZipCorrect) {
+        zip.style.border = '2px solid yellow';
+        zip.style.margin = '5px';
+        zip.style.textAlign = 'center';
+        zip.before(zipError);
+        zipError.innerText = "Did you enter a valid zip?";   
+    }
+
+    if (!isCvvCorrect) {
+        cvvError.style.border = '2px solid yellow';
+        cvvError.style.margin = '5px';
+        cvvError.style.textAlign = 'center';
+        cvv.before(cvvError);
+        cvvError.innerText = "Hmmm... A CVV is either 3 or 4 digits.";
+    }
+
+    if (isCCCorrect && isZipCorrect && isCvvCorrect) {
+        return true;
+    }   
+}
+
+const form = document.querySelector("form");
+form.addEventListener ('submit', (e) => {
+    if (!validateName()) {
+      e.preventDefault();
+    }
+
+    if (!validateEmail()) {
+      e.preventDefault();
+    }
+
+    if (!validateActivity()) {
+        e.preventDefault();
+    }
+
+    if (selectPayment === 'credit card') {
+        if (!validateCreditCard()) {
+            e.preventDefault();
+        }
+    }
+});
 
 //Autofocus feature for first text field
 document.getElementById('name').focus();
