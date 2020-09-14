@@ -39,31 +39,31 @@ themeSelect.disabled = true;
 //FIX
 //Only once a theme is selected can someone pick a color. I don't make the rules!
 const shirtDesign = document.getElementById("design");
-design.addEventListener('change', (e) => {
+shirtDesign.addEventListener('change', (e) => {
     disableColor.disabled = false;
     //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedIndex
     disableColor.selectedIndex = '0'; 
     //If the user selects a heart, the pun options are disabled
-    if (e.target.value = '♥') {
+    if (e.target.value === 'heart js') {
         // Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
         let j;
         for (j = 0; j < disableColor.length; j++) {
             if (disableColor.options[j].text.includes('Puns')) {
-                disableColor.options[j].hidden === true;
+                disableColor.options[j].hidden = true;
             } else {
-                disableColor.options[j].hidden === false;
+                disableColor.options[j].hidden = false;
             }                  
         }
     }
     //If user selects Puns, the heart options are disabled
-    if (e.target.value = 'Puns') {
+    if (e.target.value === 'js puns') {
       //Loops through each option to match js puns with the right colors
       let j;
       for (j = 0; j < disableColor.length; j++) {
           if (disableColor.options[j].text.includes('♥')) {
-              disableColor.options[j].hidden === true;
+              disableColor.options[j].hidden = true;
           }   else {
-              disableColor.options[j].hidden === false;
+              disableColor.options[j].hidden = false;
           }                  
       } 
   }  
@@ -246,7 +246,7 @@ email.addEventListener('input', () => {
 //Inspired by: https://www.regular-expressions.info/creditcard.html
 const validateCreditCard = () => {
     //Accommodates all card types between 13-16 numbers
-    const isCCCorrect = /[^0-9]+{13,16}$/.test(cardNumber.value);
+    const isCCCorrect = /[^0-9]+{13, 16}$/.test(cardNumber.value);
     //Allows only 9 digit zip code with or without dashes
     const isZipCorrect = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(zip.value);
     //Accommodates all card cvv types with either 3 or 4 numbers
@@ -272,10 +272,10 @@ const validateCreditCard = () => {
         creditCardError.innerText = "Whoops! Invalid card information.";
 
         if (cardNumber.value.length > 16 ) {
-            creditCardError.innerText = "Woah there! Your credit card number cannot be more than 16 digits.";
+            creditCardError.innerText = "Card number cannot be more than 16 digits.";
         }
         if (cardNumber.value.length < 13 ) {
-            creditCardError.innerText = "Uh oh! Your credit card number has to be at least 13 digits.";
+            creditCardError.innerText = "Card number has to be at least 13 digits.";
         }
         if (isNaN(cardNumber.value)) {
             creditCardError.innerText = "Oh no! Your credit card number has to be at least 13 digits. Please remove any special characters or letters.";
@@ -317,7 +317,7 @@ form.addEventListener ('submit', (e) => {
         e.preventDefault();
     }
 
-    if (selectPayment === 'credit card') {
+    if (selectPayment = 'credit card') {
         if (!validateCreditCard()) {
             e.preventDefault();
         }
