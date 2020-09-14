@@ -116,6 +116,7 @@ activity.addEventListener('change', (e) => {
 	}
     total.innerHTML = `Your total: $${initialCost}`;
     total.style.color = 'yellow';
+    total.style.textAlign = 'center';
 }); 
 
 //Validating Activities Section
@@ -193,7 +194,7 @@ const validateName = () => {
         return true;
 
     } else {
-        name.style.border = '2px solid yellow';
+        name.style.border = '3px solid yellow';
         name.before(nameError);
         nameError.innerText = "What's your name? We'd love to know!";
         nameError.style.margin = '5px';
@@ -215,7 +216,7 @@ const validateEmail = () => {
         return true;
 
     } else {
-        email.style.border = '2px solid yellow';
+        email.style.border = '3px solid yellow';
         email.before(emailError);
         emailError.innerText = "Let's be friends! Please enter a valid email.";
         emailError.style.margin = '5px';
@@ -233,7 +234,7 @@ email.addEventListener('input', () => {
         return true;
 
     } else {
-        email.style.border = '2px solid yellow';
+        email.style.border = '3px solid yellow';
         email.before(emailError);
         emailError.innerText = "Let's be friends! Please enter a valid email.";
         emailError.style.margin = '5px';
@@ -265,37 +266,37 @@ const validateCreditCard = () => {
     }
     
     if (!isCCCorrect) {
-        cardNumber.style.border = '2px solid yellow';
+        cardNumber.before(creditCardError);
+        cardNumber.style.border = '3px solid yellow';
         cardNumber.style.margin = '5px';
         cardNumber.style.textAlign = 'center';
-        cardNumber.before(creditCardError);
         creditCardError.innerText = "Whoops! Invalid card information.";
 
         if (cardNumber.value.length > 16 ) {
-            creditCardError.innerText = "Card number cannot be more than 16 digits.";
+            creditCardError.innerText = "Card number cannot be more than 16 digits...";
         }
         if (cardNumber.value.length < 13 ) {
-            creditCardError.innerText = "Card number has to be at least 13 digits.";
+            creditCardError.innerText = "Card number has to be at least 13 digits...";
         }
         if (isNaN(cardNumber.value)) {
-            creditCardError.innerText = "Oh no! Your credit card number has to be at least 13 digits. Please remove any special characters or letters.";
+            creditCardError.innerText = "Card number has to be at least 13 digits. Remove any special characters or letters.";
         }
     }
 
     if (!isZipCorrect) {
-        zip.style.border = '2px solid yellow';
+        zip.before(zipError);
+        zip.style.border = '3px solid yellow';
         zip.style.margin = '5px';
         zip.style.textAlign = 'center';
-        zip.before(zipError);
-        zipError.innerText = "Did you enter a valid zip?";   
+        zipError.innerText = "Invalid zip...";   
     }
 
     if (!isCvvCorrect) {
-        cvvError.style.border = '2px solid yellow';
-        cvvError.style.margin = '5px';
-        cvvError.style.textAlign = 'center';
         cvv.before(cvvError);
-        cvvError.innerText = "Hmmm... A CVV is either 3 or 4 digits.";
+        document.getElementById('cvv').style.border = '3px solid yellow';
+        cvvError.style.margin = '5px';
+        cvvError.style.textAlign = 'left';
+        cvvError.innerText = "3 or 4 digits...";
     }
 
     if (isCCCorrect && isZipCorrect && isCvvCorrect) {

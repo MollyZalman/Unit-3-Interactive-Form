@@ -202,12 +202,16 @@ option {
 	}
 	.col + .col {
 		margin-left: 2.5%;
+		color: yellow; 
+		font-size: 16px;
 	}
 	.col-3 {
 		width: 23%;
 	}
 	.col-6 {
 		width: 49%;
+		color: yellow; 
+		font-size: 16px;
 	}
 
 	label {
