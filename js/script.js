@@ -145,7 +145,6 @@ const creditCard = document.querySelector('#credit-card');
 const paypal = document.querySelector('#paypal');
 const bitcoin = document.querySelector('#bitcoin');
 
-
 //If the credit card method is selected, the two other elements are blocked and so on
 payment.addEventListener('change', (e) => {
     const type = e.target.value; 
@@ -197,6 +196,7 @@ const validateName = () => {
         name.style.border = '3px solid yellow';
         name.before(nameError);
         nameError.innerText = "What's your name? We'd love to know!";
+        nameError.style.color = 'yellow';
         nameError.style.margin = '5px';
         nameError.style.textAlign = 'center';
         return false;
@@ -219,6 +219,7 @@ const validateEmail = () => {
         email.style.border = '3px solid yellow';
         email.before(emailError);
         emailError.innerText = "Let's be friends! Please enter a valid email.";
+        emailError.style.color = 'yellow';
         emailError.style.margin = '5px';
         emailError.style.textAlign = 'center';
         return false;
