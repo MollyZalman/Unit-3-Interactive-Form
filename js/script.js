@@ -34,7 +34,6 @@ disableColor.disabled = true;
 disableColor.add(themeSelect, disableColor.options[0]);
 disableColor.selectedIndex = '0';
 //No selecting here!
-themeSelect.disabled = true;
 //Only once a theme is selected can someone pick a color. I don't make the rules!
 const shirtDesign = document.getElementById("design");
 shirtDesign.addEventListener('change', (e) => {
