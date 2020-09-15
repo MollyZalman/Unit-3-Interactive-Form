@@ -26,9 +26,9 @@ title.addEventListener('change', (e) => {
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden and https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
 const disableColor = document.getElementById("color");
 disableColor.disabled = true;
-//Blocks user from selecting a color before a theme by displaying "Please select a T-shirt theme!" by creating a new option
-const themeSelect = document.createElement('option');
-themeSelect.text = 'Please select a T-shirt theme!';
+ const themeSelect = document.createElement('option');
+ themeSelect.text = 'Please select a T-shirt theme!';
+//Blocks user from selecting a color before a theme by displaying "Please select a T-shirt theme!", creating a new option
 //Adds it to color select at beginning of list
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLOptionElement/Option
 disableColor.add(themeSelect, disableColor.options[0]);
@@ -189,12 +189,13 @@ const validateName = () => {
     if (name.value.length > 0) {
         if(nameError){
         nameError.remove();
+        name.style.border = '2px solid #330099';
         }
         return true;
 
     } else {
-        name.style.border = '3px solid yellow';
         name.before(nameError);
+        name.style.border = '3px solid yellow';
         nameError.innerText = "What's your name? We'd love to know!";
         nameError.style.color = 'yellow';
         nameError.style.margin = '5px';
@@ -216,8 +217,8 @@ const validateEmail = () => {
         return true;
 
     } else {
-        email.style.border = '3px solid yellow';
         email.before(emailError);
+        email.style.border = '3px solid yellow';
         emailError.innerText = "Let's be friends! Please enter a valid email.";
         emailError.style.color = 'yellow';
         emailError.style.margin = '5px';
@@ -231,6 +232,7 @@ email.addEventListener('input', () => {
     if(isEmailCorrect){
         if(emailError) {
         emailError.remove();
+        email.style.border = '2px solid #330099';
     }
         return true;
 
@@ -300,7 +302,7 @@ const validateCreditCard = () => {
     if (!isCvvCorrect) {
         cvv.before(cvvError);
         document.getElementById('cvv').style.border = '3px solid yellow';
-        cvvError.style.margin = '5px';
+        cvv.style.margin = '5px';
         cvvError.style.textAlign = 'left';
         cvvError.innerText = "3 or 4 digits...";
     }
