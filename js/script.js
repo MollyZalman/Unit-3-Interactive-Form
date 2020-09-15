@@ -1,10 +1,10 @@
                                                                  /*#########################################
                                                                           Treehouse FSJS Techdegree:
-                                                                       Project 3 - An Interactive Form
+                                                                       PROJECT 3 - AN INTERACTIVE FORM
                                                                 ##########################################*/
 
 
-//Job Role Selection Section
+//JOB ROLE SELECTION SECTION
 
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/hidden
 const title = document.getElementById("title");
@@ -20,7 +20,7 @@ title.addEventListener('change', (e) => {
     }
 });
 
-//T-shirt Selection Section
+//T-SHIRT SELECTION SECTION
 
 //Disables Select a Color
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden and https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
@@ -66,7 +66,7 @@ shirtDesign.addEventListener('change', (e) => {
   }  
 });
 
-//Activity Section
+//ACTIVITY SECTION
 
 //Creates new h3 element for the total and sets initial value (before anything is checked) to 0
 const activity = document.querySelector('.activities');
@@ -116,7 +116,7 @@ activity.addEventListener('change', (e) => {
     total.style.textAlign = 'center';
 }); 
 
-//Validating Activities Section
+//VALIDATE ACTIVITIES SECTION
 
 const validateActivity = () => {
   //loop through the activity choices and hide the error message if at least one of the activities is checked
@@ -126,16 +126,15 @@ const validateActivity = () => {
       return true;
     }
   }
-  //Was going to honor Guil with Tomato here but Yellow is more striking
   activityError.style.color = 'yellow';
   activityError.hidden = false;
   return false;
 }
 
-//Payment Selection Section
+//PAYMENT SELECTION SECTION
 
 const payment = document.querySelector('#payment');
-const timeToPay = payment[1];
+const timeToPay = payment[0];
 const selectMethod = document.querySelector("#payment > option:nth-child(1)");
 const creditCard = document.querySelector("#payment [value='credit card']");
 const creditCardDiv = document.querySelector('#credit-card');
@@ -145,37 +144,38 @@ const bitcoin = document.querySelector("#payment [value='bitcoin']");
 const bitcoinDiv = document.querySelector("#bitcoin" );
 const creditCardReference = document.querySelector('option[value="credit card').value;
 
-//Selects credit card option as default
 creditCardReference.value = true;
 creditCard.selected = true;
 creditCard.text = "Credit Card";
-selectMethod.hidden = true;
+selectMethod.disabled = true;
 paypalDiv.style.display = 'none';
 bitcoinDiv.style.display = 'none';
+paypalDiv.hidden = true;
+bitcoinDiv.hidden = true;
+timeToPay.hidden = true;
 
 let selectPayment = document.querySelector('#payment').value;
-
 //If the credit card method is selected, the two other elements are blocked and so on
 payment.addEventListener('change', (e) => {
     selectPayment = e.target.value;
-    if (selectPayment === creditCard.value ){
+    if (selectPayment === creditCard.value ) {
         creditCardDiv.style.display = 'block';
         paypalDiv.style.display = 'none';
         bitcoinDiv.style.display = 'none';
-    }else if(selectPayment === paypal.value){
+    } else if (selectPayment === paypal.value) {
         creditCardDiv.style.display = 'none';
         paypalDiv.style.display = 'block';
         bitcoinDiv.style.display = 'none';
-    }else if(selectPayment === bitcoin.value){
+    } else if (selectPayment === bitcoin.value) {
         creditCardDiv.style.display = 'none';
         paypalDiv.style.display = 'none';
         bitcoinDiv.style.display = 'block';
     }
 }); 
 
-//Validation Section
+//VALIDATION SECTION
 
-const name = document.querySelector('#name');
+//Creates errors for the name, email, credit card, zip, and cvv
 const nameError = document.createElement("div"); 
 const email = document.querySelector('#mail');
 const emailError = document.createElement("div"); 
@@ -188,6 +188,7 @@ const cvvError = document.createElement("div");
 
 //Validates name
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before
+const name = document.querySelector('#name');
 const validateName = () => {
     if (name.value.length > 0) {
         if(nameError){
@@ -343,6 +344,8 @@ const validateCreditCard = () => {
     cvv.addEventListener('click', validateCreditCard);
 }
 
+//FORM SUBMISSION
+
 //Inspired by: https://www.w3schools.com/jsref/met_form_reset.asp#:~:text=The%20reset()%20method%20resets,method%20to%20submit%20the%20form.
 const form = document.querySelector("form");
 form.addEventListener ('submit', (e) => {
@@ -358,12 +361,14 @@ form.addEventListener ('submit', (e) => {
         e.preventDefault();
     }
 
-    if (selectPayment === 'credit card') {
-        if (!validateCreditCard()) {
-            e.preventDefault();
-        }
+     if (selectPayment === 'credit card') {
+         if (!validateCreditCard()) {
+             e.preventDefault();
+         }
     }
 });
+
+//CALL TO ACTIONS
 
 name.addEventListener('change', validateName);
 
