@@ -16,7 +16,7 @@ button {
 
 body {
   font: 1em/1.5;
-  color: rgba(6, 49, 68, 0.9);
+  color: #330099;
 	background: lightsalmon;
 }
 
@@ -73,6 +73,7 @@ input[type="text"],
 input[type="email"],
 legend {
 	width: 100%;
+	border-color: #330099;
 }
 
 label {

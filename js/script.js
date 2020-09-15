@@ -35,8 +35,6 @@ disableColor.add(themeSelect, disableColor.options[0]);
 disableColor.selectedIndex = '0';
 //No selecting here!
 themeSelect.disabled = true;
-
-//FIX
 //Only once a theme is selected can someone pick a color. I don't make the rules!
 const shirtDesign = document.getElementById("design");
 shirtDesign.addEventListener('change', (e) => {
@@ -55,9 +53,8 @@ shirtDesign.addEventListener('change', (e) => {
             }                  
         }
     }
-    //If user selects Puns, the heart options are disabled
+    //If the user selects Puns, the heart options are disabled
     if (e.target.value === 'js puns') {
-      //Loops through each option to match js puns with the right colors
       let j;
       for (j = 0; j < disableColor.length; j++) {
           if (disableColor.options[j].text.includes('♥')) {
@@ -139,35 +136,39 @@ const validateActivity = () => {
 
 const payment = document.querySelector('#payment');
 const timeToPay = payment[0];
-const defaultCard = payment.value = 'credit card';
-const selectMethod = payment.value = 'select method';
-const creditCard = document.querySelector('#credit-card');
-const paypal = document.querySelector('#paypal');
-const bitcoin = document.querySelector('#bitcoin');
+const selectMethod = document.querySelector("#payment > option:nth-child(1)");
+const creditCard = document.querySelector("#payment [value='credit card']");
+const creditCardDiv = document.querySelector('#credit-card');
+const paypal = document.querySelector("#payment [value='paypal']" );
+const paypalDiv = document.querySelector("#paypal" );
+const bitcoin = document.querySelector("#payment [value='bitcoin']");
+const bitcoinDiv = document.querySelector("#bitcoin" );
+
+//Automatically selects credit card as default
+creditCard.selected = true;
+selectMethod.hidden = true;
+paypalDiv.style.display = 'none';
+bitcoinDiv.style.display = 'none';
 
 //If the credit card method is selected, the two other elements are blocked and so on
 payment.addEventListener('change', (e) => {
-    const type = e.target.value; 
-    if (type === 'credit card') {
-        creditCard.style.display = 'block';
-        paypal.style.display = 'none';
-        bitcoin.style.display = 'none';
-    } else if (type === 'paypal') {
-        creditCard.style.display = 'none';
-        paypal.style.display = 'block';
-        bitcoin.style.display = 'none';
-    } else {
-        creditCard.style.display = 'none';
-        paypal.style.display = 'none';
-        bitcoin.style.display = 'block';
+    selectPayment = e.target.value;
+    if (selectPayment === creditCard.value ){
+        creditCardDiv.style.display = 'block';
+        paypalDiv.style.display = 'none';
+        bitcoinDiv.style.display = 'none';
+    }else if(selectPayment === paypal.value){
+        creditCardDiv.style.display = 'none';
+        paypalDiv.style.display = 'block';
+        bitcoinDiv.style.display = 'none';
+    }else if(selectPayment === bitcoin.value){
+        creditCardDiv.style.display = 'none';
+        paypalDiv.style.display = 'none';
+        bitcoinDiv.style.display = 'block';
     }
-
-    selectMethod.hidden === true;
-    defaultCard.selected === true;
-    paypal.hidden === true;
-    bitcoin.hidden === true;
-    timeToPay.hidden === true;
 });
+
+let selectPayment = document.querySelector('#payment').value;  
 
 //Validation Section
 
@@ -181,7 +182,6 @@ const zip = document.getElementById('zip');
 const zipError = document.createElement("div"); 
 const cvv = document.getElementById('cvv');
 const cvvError = document.createElement("div"); 
-let selectPayment = document.querySelector('#payment').value;
 
 //Validates the name
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before
@@ -238,31 +238,36 @@ email.addEventListener('input', () => {
         email.style.border = '3px solid yellow';
         email.before(emailError);
         emailError.innerText = "Let's be friends! Please enter a valid email.";
+        emailError.style.color = 'yellow';
         emailError.style.margin = '5px';
         emailError.style.textAlign = 'center';
+        emailError.style.border = '#330099';
         return false;
     }
 });
-  
+
 //Validates credit card
 //Inspired by: https://www.regular-expressions.info/creditcard.html
 const validateCreditCard = () => {
     //Accommodates all card types between 13-16 numbers
-    const isCCCorrect = /[^0-9]+{13, 16}$/.test(cardNumber.value);
+    const isCCCorrect = /^[0-9]{13,16}$/.test(cardNumber.value);
     //Allows only 9 digit zip code with or without dashes
-    const isZipCorrect = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(zip.value);
+    const isZipCorrect = /^[0-9]{5}$/.test(zip.value);
     //Accommodates all card cvv types with either 3 or 4 numbers
-    const isCvvCorrect = /^[0-9]{3, 4}$/.test(cvv.value);
+    const isCvvCorrect = /^[0-9]{3}$/.test(cvv.value);
         
-    if (isCCCorrect && creditCardError  ) {
+    if (isCCCorrect && creditCardError) {
+        cardNumber.style.border = '2px solid #330099';
         creditCardError.remove();
-    }
+    } 
 
     if (isZipCorrect && zipError) {
+        zip.style.border = '2px solid #330099';
         zipError.remove();
     }
 
     if (isCvvCorrect && cvvError) {
+        cvv.style.border = '2px solid #330099';
         cvvError.remove();
     }
     
@@ -274,13 +279,13 @@ const validateCreditCard = () => {
         creditCardError.innerText = "Whoops! Invalid card information.";
 
         if (cardNumber.value.length > 16 ) {
-            creditCardError.innerText = "Card number cannot be more than 16 digits...";
+            creditCardError.innerText = "Cannot be more than 16 digits...";
         }
         if (cardNumber.value.length < 13 ) {
-            creditCardError.innerText = "Card number has to be at least 13 digits...";
+            creditCardError.innerText = "Enter between 13-16 digits...";
         }
         if (isNaN(cardNumber.value)) {
-            creditCardError.innerText = "Card number has to be at least 13 digits. Remove any special characters or letters.";
+            creditCardError.innerText = "Remove special characters/letters.";
         }
     }
 
@@ -303,8 +308,11 @@ const validateCreditCard = () => {
     if (isCCCorrect && isZipCorrect && isCvvCorrect) {
         return true;
     }   
+    zip.addEventListener('keyup', validateCreditCard);
+    cvv.addEventListener('keyup', validateCreditCard);
 }
 
+//Inspired by: https://www.w3schools.com/jsref/met_form_reset.asp#:~:text=The%20reset()%20method%20resets,method%20to%20submit%20the%20form.
 const form = document.querySelector("form");
 form.addEventListener ('submit', (e) => {
     if (!validateName()) {
@@ -319,15 +327,21 @@ form.addEventListener ('submit', (e) => {
         e.preventDefault();
     }
 
-    if (selectPayment = 'credit card') {
+    if (selectPayment === 'credit card') {
         if (!validateCreditCard()) {
             e.preventDefault();
         }
     }
 });
 
+name.addEventListener('keyup', validateName);
+
 //Autofocus feature for first text field
 document.getElementById('name').focus();
 
 //Validates the activity section
 activity.addEventListener('click', validateActivity);
+
+document.querySelector("form").reset();
+
+cardNumber.addEventListener('keyup', validateCreditCard);
