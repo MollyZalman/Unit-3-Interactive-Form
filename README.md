@@ -2,10 +2,10 @@
 Interactive Form
 
 ## Why?
-This project showcases my capability to use vanilla Javascript without any plug-ins to make a form interactive and user-friendly 
+This project showcases my capability to use vanilla Javascript without any plug-ins to make a form interactive and user-friendly, whether JavaScript is activated or not. 
 
 ## Motivation
-My third project for the Team Treehouse Tech Degree in Full Stack Javascript.
+My third project for the Team Treehouse Tech Degree in Full Stack JavaScript.
 
 ### Build status
 Not Started
@@ -14,7 +14,7 @@ Not Started
 (09/05/20)
 
 ### End Date (non permanent):
-
+(09/15/20)
 
 ### Code style
 js-standard-style
@@ -23,4 +23,4 @@ js-standard-style
 TBD
 
 ### Credits
-Thank you to Richard Clark for the reset.css file as well as the wonderful team at Treehouse
+Thank you to Richard Clark for the reset.css file as well as the wonderful team at Treehouse.

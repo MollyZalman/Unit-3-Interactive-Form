@@ -1,6 +1,6 @@
                                                                  /*#########################################
-                                                                        Treehouse FSJS Techdegree:
-                                                                    Project 3 - An Interactive Form
+                                                                          Treehouse FSJS Techdegree:
+                                                                       Project 3 - An Interactive Form
                                                                 ##########################################*/
 
 
@@ -10,7 +10,7 @@
 const title = document.getElementById("title");
 const otherTitle = document.getElementById("other-title");
 otherTitle.style.display = "none";
-//if other is picked, then text box displays. If not, it doesn't display.
+//if 'other' is picked, then text box displays. If not, it doesn't.
 title.addEventListener('change', (e) => {
     if (e.target.value === 'other'){
         otherTitle.style.display = "block";
@@ -25,9 +25,9 @@ title.addEventListener('change', (e) => {
 //Disables Select a Color
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden and https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
 const disableColor = document.getElementById("color");
-disableColor.disabled = true;
- const themeSelect = document.createElement('option');
- themeSelect.text = 'Please select a T-shirt theme!';
+disableColor.hidden = true;
+const themeSelect = document.createElement('option');
+themeSelect.text = 'Please select a T-shirt theme!';
 //Blocks user from selecting a color before a theme by displaying "Please select a T-shirt theme!", creating a new option
 //Adds it to color select at beginning of list
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLOptionElement/Option
@@ -38,6 +38,7 @@ disableColor.selectedIndex = '0';
 const shirtDesign = document.getElementById("design");
 shirtDesign.addEventListener('change', (e) => {
     disableColor.disabled = false;
+    disableColor.hidden = false;
     //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedIndex
     disableColor.selectedIndex = '0'; 
     //If the user selects a heart, the pun options are disabled
@@ -87,7 +88,7 @@ activityLegend.appendChild(activityError);
 activity.addEventListener('change', (e) => {
     let selected = e.target;
     //Inspired by: https://www.javascripttutorial.net/javascript-dom/javascript-getattribute/
-    //If you check a box, this will account for the date and time you picked
+    //If you check a box, this tracks the specific time of the activity
 	let timeSelected = selected.getAttribute('data-day-and-time'); 
 	//loops through each option at light-speed while analyzing the dates and times
 	for (let j = 0; j < checkboxes.length; j++) {
@@ -134,7 +135,7 @@ const validateActivity = () => {
 //Payment Selection Section
 
 const payment = document.querySelector('#payment');
-const timeToPay = payment[0];
+const timeToPay = payment[1];
 const selectMethod = document.querySelector("#payment > option:nth-child(1)");
 const creditCard = document.querySelector("#payment [value='credit card']");
 const creditCardDiv = document.querySelector('#credit-card');
@@ -142,12 +143,17 @@ const paypal = document.querySelector("#payment [value='paypal']" );
 const paypalDiv = document.querySelector("#paypal" );
 const bitcoin = document.querySelector("#payment [value='bitcoin']");
 const bitcoinDiv = document.querySelector("#bitcoin" );
+const creditCardReference = document.querySelector('option[value="credit card').value;
 
-//Automatically selects credit card as default
+//Selects credit card option as default
+creditCardReference.value = true;
 creditCard.selected = true;
+creditCard.text = "Credit Card";
 selectMethod.hidden = true;
 paypalDiv.style.display = 'none';
 bitcoinDiv.style.display = 'none';
+
+let selectPayment = document.querySelector('#payment').value;
 
 //If the credit card method is selected, the two other elements are blocked and so on
 payment.addEventListener('change', (e) => {
@@ -165,13 +171,11 @@ payment.addEventListener('change', (e) => {
         paypalDiv.style.display = 'none';
         bitcoinDiv.style.display = 'block';
     }
-});
-
-let selectPayment = document.querySelector('#payment').value;  
+}); 
 
 //Validation Section
 
-const name = document.querySelector('#name'); 
+const name = document.querySelector('#name');
 const nameError = document.createElement("div"); 
 const email = document.querySelector('#mail');
 const emailError = document.createElement("div"); 
@@ -182,7 +186,7 @@ const zipError = document.createElement("div");
 const cvv = document.getElementById('cvv');
 const cvvError = document.createElement("div"); 
 
-//Validates the name
+//Validates name
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before
 const validateName = () => {
     if (name.value.length > 0) {
@@ -202,6 +206,27 @@ const validateName = () => {
         return false;
     }
 };
+
+name.addEventListener('input', () => {
+    const isNameCorrect = /^[A-Z][a-zA-Z]/.test(name.value);
+    if(isNameCorrect){
+        if(nameError) {
+        nameError.remove();
+        name.style.border = '2px solid #330099';
+    }
+        return true;
+
+    } else {
+        name.style.border = '3px solid yellow';
+        name.before(nameError);
+        nameError.innerText = "What's your name? We'd love to know!";
+        nameError.style.color = 'yellow';
+        nameError.style.margin = '5px';
+        nameError.style.textAlign = 'center';
+        nameError.style.border = '#330099';
+        return false;
+    }
+});
 
 //Validates email
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
@@ -252,7 +277,7 @@ email.addEventListener('input', () => {
 const validateCreditCard = () => {
     //Accommodates all card types between 13-16 numbers
     const isCCCorrect = /^[0-9]{13,16}$/.test(cardNumber.value);
-    //Allows only 9 digit zip code with or without dashes
+    //Allows only 5 digit zip code with or without dashes
     const isZipCorrect = /^[0-9]{5}$/.test(zip.value);
     //Accommodates all card cvv types with either 3 or 4 numbers
     const isCvvCorrect = /^[0-9]{3}$/.test(cvv.value);
@@ -283,10 +308,13 @@ const validateCreditCard = () => {
             creditCardError.innerText = "Cannot be more than 16 digits...";
         }
         if (cardNumber.value.length < 13 ) {
-            creditCardError.innerText = "Enter between 13-16 digits...";
+            creditCardError.innerText = "Must be more than 13 digits...";
         }
         if (isNaN(cardNumber.value)) {
             creditCardError.innerText = "Remove special characters/letters.";
+        }
+        if (cardNumber.value.length < 1) {
+            creditCardError.innerText = "Please enter your card number!";
         }
     }
 
@@ -303,7 +331,7 @@ const validateCreditCard = () => {
         document.getElementById('cvv').style.border = '3px solid yellow';
         cvv.style.margin = '5px';
         cvvError.style.textAlign = 'left';
-        cvvError.innerText = "3 or 4 digits...";
+        cvvError.innerText = "3 digits...";
     }
 
     if (isCCCorrect && isZipCorrect && isCvvCorrect) {
@@ -311,6 +339,8 @@ const validateCreditCard = () => {
     }   
     zip.addEventListener('keyup', validateCreditCard);
     cvv.addEventListener('keyup', validateCreditCard);
+    zip.addEventListener('click', validateCreditCard);
+    cvv.addEventListener('click', validateCreditCard);
 }
 
 //Inspired by: https://www.w3schools.com/jsref/met_form_reset.asp#:~:text=The%20reset()%20method%20resets,method%20to%20submit%20the%20form.
@@ -335,7 +365,7 @@ form.addEventListener ('submit', (e) => {
     }
 });
 
-name.addEventListener('keyup', validateName);
+name.addEventListener('change', validateName);
 
 //Autofocus feature for first text field
 document.getElementById('name').focus();
@@ -343,6 +373,7 @@ document.getElementById('name').focus();
 //Validates the activity section
 activity.addEventListener('click', validateActivity);
 
+//Submits form and refreshes
 document.querySelector("form").reset();
 
 cardNumber.addEventListener('keyup', validateCreditCard);
