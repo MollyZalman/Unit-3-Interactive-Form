@@ -209,7 +209,7 @@ const validateName = () => {
 };
 
 name.addEventListener('input', () => {
-    const isNameCorrect = /^[A-Z][a-zA-Z]/.test(name.value);
+    const isNameCorrect = /((?!-)[A-Za-z]{1, 63}(?<!-)\\.)+[A-Za-z]{2, 6}$/.test(name.value);
     if(isNameCorrect){
         if(nameError) {
         nameError.remove();
