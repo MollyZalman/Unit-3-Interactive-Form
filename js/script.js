@@ -233,9 +233,9 @@ name.addEventListener('input', () => {
 //Inspired by: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
 const validateEmail = () => {
     const addAtSymbol = email.value.indexOf('@');
-    const addDot = email.value.lastIndexOf('.');
+    const addDotCom = email.value.lastIndexOf('.com');
 
-    if (addAtSymbol > 1 && addDot > addAtSymbol) { 
+    if (addAtSymbol > 1 && addDotCom > addAtSymbol) { 
         if(emailError){
         emailError.remove();
     }
@@ -253,7 +253,7 @@ const validateEmail = () => {
 };
 
 email.addEventListener('input', () => {
-    const isEmailCorrect = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(email.value.toUpperCase());
+    const isEmailCorrect = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3}$/.test(email.value.toUpperCase());
     if(isEmailCorrect){
         if(emailError) {
         emailError.remove();
